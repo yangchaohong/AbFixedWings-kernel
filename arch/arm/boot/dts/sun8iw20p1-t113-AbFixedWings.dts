@@ -15,6 +15,43 @@
 	model = "sun8iw20";
 	compatible = "allwinner,r528", "arm,sun8iw20p1";
 
+	thermal-zones {
+		cpu_thermal_zone {
+			polling-delay-passive = <500>;
+			polling-delay = <1000>;
+			thermal-sensors = <&ths 0>;
+			sustainable-power = <589>;
+
+			cpu_trips: trips {
+				cpu_threshold: trip-point@0 {
+					temperature = <7000000>;
+					type = "passive";
+					hysteresis = <0>;
+				};
+				cpu_target: trip-point@1 {
+					temperature = <9000000>;
+					type = "passive";
+					hysteresis = <0>;
+				};
+				cpu_crit: cpu_crit@0 {
+					temperature = <11500000>;
+					type = "critical";
+					hysteresis = <0>;
+				};
+			};
+
+			cooling-maps {
+				map0 {
+					trip = <&cpu_target>;
+					cooling-device = <&cpu0
+					THERMAL_NO_LIMIT
+					THERMAL_NO_LIMIT>;
+					contribution = <1024>;
+				};
+			};
+		};
+	};
+
 	reg_vdd_cpu: vdd-cpu {
 		compatible = "sunxi-pwm-regulator";
 		pwms = <&pwm 3 5000 0>;
@@ -640,13 +677,13 @@
         pinctrl-names = "default", "sleep";
         dmas = <&dma 45>, <&dma 45>;
         dma-names = "tx", "rx";
-        status = "okay";
+        status = "disabled";
 
         ctp@14 {
                 compatible = "allwinner,goodix";
                 device_type = "ctp";
                 reg = <0x14>;
-                status = "okay";
+                status = "disabled";
                 ctp_name = "gt9xxnew_ts";
                 ctp_twi_id = <0x2>;
                 ctp_twi_addr = <0x14>;
