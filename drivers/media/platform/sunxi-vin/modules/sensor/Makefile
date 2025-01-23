@@ -36,3 +36,4 @@ obj-m			+= nvp6158/
 #obj-m			+= tp9950.o
 #obj-m			+= sc2232_mipi.o
 obj-y			+= n5_dvp.o
+obj-y			+= ov2640.o

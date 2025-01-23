@@ -886,9 +886,7 @@
 };
 
 &vind0 {
-	csi_top = <378000000>;
-	csi_isp = <327000000>;
-	status = "disabled"; /* enable twi and ver1 spi-nand max freq 30M */
+	status = "okay"; /* enable twi and ver1 spi-nand max freq 30M */
 
 	actuator0: actuator@5809450 {
 		device_type = "actuator0";
